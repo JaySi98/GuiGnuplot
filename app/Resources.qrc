@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>resources/copy.png</file>
+        <file>resources/new.png</file>
+        <file>resources/open.png</file>
+        <file>resources/pen.png</file>
+        <file>resources/redo.png</file>
+        <file>resources/save.png</file>
+        <file>resources/undo.png</file>
+        <file>resources/save_as.png</file>
+        <file>resources/cut.png</file>
+        <file>resources/help.png</file>
+        <file>resources/paste.png</file>
+    </qresource>
+    <qresource prefix="/commands">
+        <file>resources/commands.txt</file>
+    </qresource>
+    <qresource prefix="/keywords">
+        <file>resources/keywords.txt</file>
+    </qresource>
+</RCC>
