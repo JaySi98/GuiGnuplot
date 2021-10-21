@@ -47,7 +47,6 @@ MainWindow::MainWindow(QWidget *parent):
     connect(ui->actionClose,   &QAction::triggered, this, &MainWindow::close);
     connect(ui->actionAbout,   &QAction::triggered, this, &MainWindow::about);
     connect(ui->actionCloseCurrentScript, &QAction::triggered, this, &MainWindow::closeCurrentScript);
-    //
     connect(ui->lineEdit_search,        SIGNAL(textChanged(const QString &)),this,SLOT(searchCommand()));
     connect(ui->pushButton_add_command, &QPushButton::clicked, this, &MainWindow::addCommandToScript);
     connect(ui->listWidget_commands,    &QListWidget::itemSelectionChanged, this, &MainWindow::loadCommand);
@@ -59,8 +58,6 @@ MainWindow::MainWindow(QWidget *parent):
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_G), this, SLOT(compile()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this, SLOT(saveFile()));
 
-//    this->setMinimumSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-//    this->setMaximumSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     setWindowIcon(QIcon(":/resources/gnuplotIcon.ico"));
 }
 
@@ -75,11 +72,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::scriptChanged()
-{
-    int index = ui->tabWidget->currentIndex();
-    currentScript = scripts[index];
-}
 
 bool MainWindow::isScriptAlreadyOpened(QString fileName)
 {
@@ -90,67 +82,7 @@ bool MainWindow::isScriptAlreadyOpened(QString fileName)
             return true;
         }
     }
-
     return false;
-}
-
-void MainWindow::disableCompilation()
-{
-    ui->actionCompile->setDisabled(true);
-}
-
-void MainWindow::closeCurrentScript()
-{
-    QMessageBox::StandardButton result = QMessageBox::No;
-
-    if(!currentScript->isSaved())
-    {
-        result = QMessageBox::question(this, "Save",
-                  "Do you want to save current script?",
-                  QMessageBox::No | QMessageBox::Yes
-                  | QMessageBox::Cancel);
-    }
-
-
-    if(result != QMessageBox::Cancel)
-    {
-        if(result == QMessageBox::Yes)
-        {
-            saveFile();
-        }
-
-        if(scripts.count() > 1)
-        {
-            int scriptIndex = ui->tabWidget->currentIndex();
-            Script* toClose = scripts[scriptIndex];
-
-            ui->tabWidget->removeTab(scriptIndex);
-            scripts.removeAt(scriptIndex);
-            delete toClose;
-
-            for(int i = 0; i < scripts.count(); i++)
-            {
-                if(scripts[i] != nullptr)
-                {
-                    currentScript = scripts[i];
-                    ui->tabWidget->setCurrentIndex(i);
-                }
-            }
-        }
-        else
-        {
-            currentScript->setFileName("");
-            currentScript->setPreviousText("");
-            currentScript->setText("");
-        }
-
-        // enable creating new scripts
-        if(!ui->actionNew->isEnabled())
-        {
-            ui->actionNew->setEnabled(true);
-            ui->actionOpen->setEnabled(true);
-        }
-    }
 }
 
 /*!
@@ -203,16 +135,16 @@ void MainWindow::closeEvent (QCloseEvent *event)
         if(unsavedScripts == 1)
         {
             result = QMessageBox::question(this, "Unsaved changes",
-                                                 QString("There is one unsaved Script. Do you want to exit"
-                                                 " without saving it?").arg(unsavedScripts),
-                                                 QMessageBox::Yes| QMessageBox::Cancel);
+                                         QString("There is one unsaved Script. Do you want to exit"
+                                         " without saving it?").arg(unsavedScripts),
+                                         QMessageBox::Yes| QMessageBox::Cancel);
         }
         else
         {
             result = QMessageBox::question(this, "Unsaved changes",
-                                                 QString("There are %0 unsaved scripts. Do you want to exit"
-                                                 " without saving them?").arg(unsavedScripts),
-                                                 QMessageBox::Yes| QMessageBox::Cancel);
+                                         QString("There are %0 unsaved scripts. Do you want to exit"
+                                         " without saving them?").arg(unsavedScripts),
+                                         QMessageBox::Yes| QMessageBox::Cancel);
         }
 
         if(result == QMessageBox::Yes)
@@ -235,7 +167,6 @@ void MainWindow::closeEvent (QCloseEvent *event)
 /*!
  * @brief Loads commands from .txt file into a list and QListWidget
  */
-
 void MainWindow::parseCommandList()
 {
     QString fileName = ":commands/resources/commands.txt";
@@ -267,7 +198,6 @@ void MainWindow::parseCommandList()
 /*!
  * @brief Searches list widget for specified command
  */
-
 void MainWindow::searchCommand()
 {
     QString input = ui->lineEdit_search->text();
@@ -290,7 +220,6 @@ void MainWindow::searchCommand()
 /*!
  * @brief delets widgets for current command and set the new one
  */
-
 void MainWindow::loadCommand()
 {
     selected_command = ui->listWidget_commands->currentItem();
@@ -311,11 +240,12 @@ void MainWindow::loadCommand()
 /*!
  * @brief sets widgets for currently selected gnuplot command
  */
-
 void MainWindow::setCommandWidgets()
 {
     QScrollArea *scroll_area = qobject_cast<QScrollArea*>(ui->scrollArea_params);
-    QWidget *central = command_handler->getCommandWidgets(selected_command->text(),selected_command_num);
+
+//    QWidget *central = command_handler->getCommandWidgets(selected_command->text(),selected_command_num);
+    QWidget *central = command_handler->GetGridLayout(selected_command->text(),selected_command_num);
 
     scroll_area->setWidget(central);
 }
@@ -323,7 +253,6 @@ void MainWindow::setCommandWidgets()
 /*!
  * @brief deletes widgets inside scrollArea_options
  */
-
 void MainWindow::clearCommandWidgets()
 {
     // every child widget of central is also destroyed
@@ -359,7 +288,70 @@ void MainWindow::showHelp()
     gnuplot_process->help(selected_command->text());
 }
 
-/* *********************** TEXT EDITOR FUNCTIONALITY *********************** */
+/* *********************** SLOTS *********************** */
+void MainWindow::scriptChanged()
+{
+    int index = ui->tabWidget->currentIndex();
+    currentScript = scripts[index];
+}
+
+void MainWindow::disableCompilation()
+{
+    ui->actionCompile->setDisabled(true);
+}
+
+void MainWindow::closeCurrentScript()
+{
+    QMessageBox::StandardButton result = QMessageBox::No;
+
+    if(!currentScript->isSaved())
+    {
+        result = QMessageBox::question(this, "Save",
+                  "Do you want to save current script?",
+                  QMessageBox::No | QMessageBox::Yes
+                  | QMessageBox::Cancel);
+    }
+
+    if(result != QMessageBox::Cancel)
+    {
+        if(result == QMessageBox::Yes)
+        {
+            saveFile();
+        }
+
+        if(scripts.count() > 1)
+        {
+            int scriptIndex = ui->tabWidget->currentIndex();
+            Script* toClose = scripts[scriptIndex];
+
+            ui->tabWidget->removeTab(scriptIndex);
+            scripts.removeAt(scriptIndex);
+            delete toClose;
+
+            for(int i = 0; i < scripts.count(); i++)
+            {
+                if(scripts[i] != nullptr)
+                {
+                    currentScript = scripts[i];
+                    ui->tabWidget->setCurrentIndex(i);
+                }
+            }
+        }
+        else
+        {
+            currentScript->setFileName("");
+            currentScript->setPreviousText("");
+            currentScript->setText("");
+        }
+
+        // enable creating new scripts
+        if(!ui->actionNew->isEnabled())
+        {
+            ui->actionNew->setEnabled(true);
+            ui->actionOpen->setEnabled(true);
+        }
+    }
+}
 
 void MainWindow::newFile()
 {

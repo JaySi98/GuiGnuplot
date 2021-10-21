@@ -52,6 +52,10 @@ public:
 
 
 private slots:
+    void searchCommand();
+    void scriptChanged();
+    void closeCurrentScript();
+    void disableCompilation();
     void newFile();
     void openFile();
     void saveFile();
@@ -63,10 +67,7 @@ private slots:
     void undo();
     void redo();
     void about();
-    void searchCommand();
-    void scriptChanged();
-    void closeCurrentScript();
-    void disableCompilation();
+
 
 private:
     void closeEvent(QCloseEvent *event);

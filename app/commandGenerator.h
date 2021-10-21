@@ -9,6 +9,7 @@
 #include <QtDebug>
 //
 #include <QList>
+#include <QPair>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -32,34 +33,43 @@ public:
     explicit CommandOptionsHandler(QObject *parent = nullptr);
              CommandOptionsHandler(QMainWindow *main_window);
 
-    QWidget* getCommandWidgets(QString command_name, int index);
-    // test
-    QWidget* generateCommandWidgets(QList<QString> settings);
-    QLayout*    generateParameter(QList<QString>, QWidget *central);
-    WidgetType  resolveParameter(QString input);
+    QWidget*   getCommandWidgets(QString command_name, int index);
+    QWidget*   generateCommandWidgets(QList<QString> settings);
 
+    QLayout*   generateParameter(QList<QString>, QWidget *central);
+    WidgetType resolveParameter(QString input);
     QString  getCommandString();
     void     freeMemory();
+    QString  parseFileLine(QString line);
+    void     createNewCommand(QString name);
+    QLayout* generateLineEdit(QList<QString>, QWidget *central);
+    QLayout* generateCombobox(QList<QString>, QWidget *central);
+    QLayout* generateSpinbox(QList<QString>, QWidget *central);
+    QLayout* generateMultiSpinbox(QList<QString>, QWidget *central);
+    QLayout* generateDoubleSpinbox(QList<QString>, QWidget *central);
+    QLayout* generateFileSearch(QList<QString>, QWidget *central);
+    QLayout* generateNoParametersLabel(QWidget *central);
 
-    // tutaj dac znaczący komentarz
-    QString     parseFileLine(QString line);
+    // test
+    QWidget* GetGridLayout(QString command_name, int index);
+    void GenerateWidgetList(QList<QString> settings, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateWidget(QList<QString>settings, QWidget *central);
 
-    void        createNewCommand(QString name);
-    // tutaj dac znaczący komentarz
-    QLayout*    generateLineEdit(QList<QString>, QWidget *central);
-    QLayout*    generateCombobox(QList<QString>, QWidget *central);
-    QLayout*    generateSpinbox(QList<QString>, QWidget *central);
-    QLayout*    generateMultiSpinbox(QList<QString>, QWidget *central);
-    QLayout*    generateDoubleSpinbox(QList<QString>, QWidget *central);
-    QLayout*    generateFileSearch(QList<QString>, QWidget *central);
-    QLayout*    generateNoParametersLabel(QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateLineEdit(QList<QString>, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateCombobox(QList<QString>, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateSpinbox(QList<QString>, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateMultiSpinbox(QList<QString>, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateDoubleSpinbox(QList<QString>, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateFileSelect(QList<QString>, QWidget *central);
+    QPair<QLayout*, QLayout*> GenerateNoParameters(QWidget *central);
 
 private:
-    QMainWindow*   main_window;
+    QMainWindow*   pMainWindow;
     Command*       command;
     QList<QString> list_settings;
 
-
+    // test
+    QList<QPair<QLayout*, QLayout*>> generatedWidgetsList;
 
 signals:
     void output(QString data, OutputType type);

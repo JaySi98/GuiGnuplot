@@ -7,7 +7,7 @@ CommandOptionsHandler::CommandOptionsHandler(QObject *parent) : QObject(parent)
 
 CommandOptionsHandler::CommandOptionsHandler(QMainWindow *main_window)
 {
-    this->main_window = main_window;
+    this->pMainWindow = main_window;
     command = new Command();
 }
 
@@ -35,6 +35,8 @@ void CommandOptionsHandler::freeMemory()
 {
     command->freeMemory();
     delete command;
+
+    generatedWidgetsList.clear();
 }
 
 /*!
@@ -50,7 +52,6 @@ QWidget *CommandOptionsHandler::getCommandWidgets(QString command_name, int inde
     QList<QString> settings = splitSettings(line);
     createNewCommand(command_name);
 
-    // parent widget, allows to easly delete every other widget
     QWidget *central = generateCommandWidgets(settings);
     
     return central;
@@ -272,7 +273,6 @@ QLayout *CommandOptionsHandler::generateSpinbox(QList<QString> input, QWidget *c
     Parameter* parameter = new Parameter(input[TEXT_POS], QString("0%0").arg(DONT_INCLUDE));
 
     QSpinBox *spinbox = new QSpinBox(central);
-    spinbox->setAlignment(Qt::AlignLeft);
     spinbox->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
     spinbox->setMaximum(1000);
     spinbox->setMinimum(-1000);
@@ -470,7 +470,7 @@ QLayout *CommandOptionsHandler::generateFileSearch(QList<QString> input, QWidget
 
     // adds parameter class to command list
     parameter->setWidgets(widget_list);
-    parameter->setMainWindow(main_window);
+    parameter->setMainWindow(pMainWindow);
     command->addParameter(parameter);
 
     return inner_layout;
@@ -513,4 +513,475 @@ QString CommandOptionsHandler::parseFileLine(QString line)
     command_name = parseCommandName(line);
 
     return command_name;
+}
+
+/* ************************************** TEST ************************************** */
+QWidget* CommandOptionsHandler::GetGridLayout(QString commandName, int index)
+{
+    // get command settings and create new command
+    QString line = list_settings[index];
+    QList<QString> settings = splitSettings(line);
+    createNewCommand(commandName);
+
+    QWidget *central = new QWidget;
+    QGridLayout *gridLayout = new QGridLayout(central);
+
+    GenerateWidgetList(settings, central);
+
+    int currentRow = 0;
+    for(int i  = 0; i < generatedWidgetsList.count(); i++)
+    {
+        QLayout* widgetsLayout  = generatedWidgetsList[i].first;
+        QLayout* checkboxLayout = generatedWidgetsList[i].second;
+        if((widgetsLayout != nullptr) && (checkboxLayout != nullptr))
+        {
+            gridLayout->addLayout(widgetsLayout, currentRow, 0);
+            gridLayout->addLayout(checkboxLayout, currentRow, 1);
+            currentRow++;
+        }
+        else if((widgetsLayout == nullptr) && (checkboxLayout == nullptr))
+        {
+            output("źle się wczytało", OutputType::ERROR);
+        }
+    }
+
+    return central;
+}
+
+void CommandOptionsHandler::GenerateWidgetList(QList<QString> settings, QWidget *central)
+{
+    // for every "&p|..||" create new pair of layouts
+    while(!settings.empty())
+    {
+        QList<QString> splited_setting = settings.takeFirst().split("|");
+
+        // correct setting always consists of label text and widget enum
+        if(splited_setting.count() >= MIN_SETTING_NUM)
+        {
+            generatedWidgetsList.append(GenerateWidget(splited_setting,central));
+        }
+        else
+        {
+            QPair<QLayout*, QLayout*> emptyLayouts(nullptr,nullptr);
+            generatedWidgetsList.append(emptyLayouts);
+        }
+    }
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateWidget(QList<QString>settings, QWidget *central)
+{
+    switch(resolveParameter(settings[WIDGET_POS]))
+    {
+        case WidgetType::LINE_EDIT:      return GenerateLineEdit(settings, central); break;
+
+        case WidgetType::COMBOBOX:       return GenerateCombobox(settings, central); break;
+
+        case WidgetType::SPINBOX:        return GenerateSpinbox(settings, central); break;
+
+        case WidgetType::MULTISPINBOX:   return GenerateMultiSpinbox(settings, central); break;
+
+        case WidgetType::DOUBLE_SPINBOX: return GenerateDoubleSpinbox(settings, central); break;
+
+        case WidgetType::FILE_SEARCH:    return GenerateFileSelect(settings, central); break;
+
+        case WidgetType::NO_PARAMS:      return GenerateNoParameters(central); break;
+
+        case WidgetType::INVALID:
+        {
+            QPair<QLayout*, QLayout*> emptyLayouts(nullptr,nullptr);
+            return emptyLayouts;
+        }
+    }
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateLineEdit(QList<QString> settings, QWidget *central)
+{
+    // list of created widgets
+    QList<QObject*>* widgetList = new QList<QObject*>();
+    Parameter* parameter = new Parameter(settings[TEXT_POS], DONT_INCLUDE);
+
+
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+
+    QLineEdit *line_edit = new QLineEdit(central);
+    line_edit->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed); //Preferred
+    line_edit->setFixedWidth(300);
+    QObject::connect(line_edit,SIGNAL(textChanged(const QString &))
+                     ,parameter,SLOT(stringChangeSlot(const QString &)));
+
+    QSpacerItem *spacer = new QSpacerItem(40,20);
+
+
+    // checkbox ---------------------------------------------------------------
+    QVBoxLayout* checkboxLayout = new QVBoxLayout();
+
+    QSpacerItem *checkboxSpacer = new QSpacerItem(20, 40);
+
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
+
+
+    // output -----------------------------------------------------------------
+    widgetList->append(line_edit);
+    widgetList->append(checkbox);
+
+    innerLayout->addWidget(line_edit);
+    innerLayout->addSpacerItem(spacer);
+
+    widgetsLayout->addWidget(label);
+    widgetsLayout->addLayout(innerLayout);
+
+    checkboxLayout->addSpacerItem(checkboxSpacer);
+    checkboxLayout->addWidget(checkbox);
+
+    parameter->setWidgets(widgetList);
+    command->addParameter(parameter);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, checkboxLayout);
+    return output;
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateCombobox(QList<QString> settings, QWidget *central)
+{
+    // list of created widgets
+    QList<QObject*>* widgetList = new QList<QObject*>();
+    Parameter* parameter = new Parameter(settings[TEXT_POS], DONT_INCLUDE);
+
+
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+
+    QComboBox *combo = new QComboBox(central);
+    combo->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    combo->setFixedWidth(300);
+
+    QList<QString> options = parseWidgetOptions(settings[WIDGET_POS]);
+    parameter->setValue(options[0] + DONT_INCLUDE);
+    for(int i = 0; i < options.count(); i++)
+    {
+        combo->addItem(options[i]);
+    }
+    QObject::connect(combo,SIGNAL(currentTextChanged(const QString &))
+                    ,parameter,SLOT(stringChangeSlot(const QString &)));
+
+    QSpacerItem *spacer = new QSpacerItem(40,20);
+
+    // checkbox ---------------------------------------------------------------
+    QVBoxLayout* checkboxLayout = new QVBoxLayout();
+
+    QSpacerItem *checkboxSpacer = new QSpacerItem(20, 40);
+
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
+
+
+    // output -----------------------------------------------------------------
+    widgetList->append(combo);
+    widgetList->append(checkbox);
+
+    innerLayout->addWidget(combo);
+    innerLayout->addSpacerItem(spacer);
+
+    widgetsLayout->addWidget(label);
+    widgetsLayout->addLayout(innerLayout);
+
+    checkboxLayout->addSpacerItem(checkboxSpacer);
+    checkboxLayout->addWidget(checkbox);
+
+    parameter->setWidgets(widgetList);
+    command->addParameter(parameter);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, checkboxLayout);
+    return output;
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateSpinbox(QList<QString> settings, QWidget *central)
+{
+    // list of created widgets
+    QList<QObject*>* widgetList = new QList<QObject*>();
+    Parameter* parameter = new Parameter(settings[TEXT_POS], QString("0%0").arg(DONT_INCLUDE));
+
+
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+
+    QSpinBox *spinbox = new QSpinBox(central);
+    spinbox->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    spinbox->setMaximum(1000);
+    spinbox->setMinimum(-1000);
+    QObject::connect(spinbox,SIGNAL(textChanged(const QString &))
+                    ,parameter,SLOT(stringChangeSlot(const QString &)));
+
+    QSpacerItem *spacer = new QSpacerItem(40,20);
+
+
+    // checkbox ---------------------------------------------------------------
+    QVBoxLayout* checkboxLayout = new QVBoxLayout();
+
+    QSpacerItem *checkboxSpacer = new QSpacerItem(20, 40);
+
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
+
+
+    // output -----------------------------------------------------------------
+    widgetList->append(spinbox);
+    widgetList->append(checkbox);
+
+    innerLayout->addWidget(spinbox);
+    innerLayout->addSpacerItem(spacer);
+
+    widgetsLayout->addWidget(label);
+    widgetsLayout->addLayout(innerLayout);
+
+    checkboxLayout->addSpacerItem(checkboxSpacer);
+    checkboxLayout->addWidget(checkbox);
+
+    parameter->setWidgets(widgetList);
+    command->addParameter(parameter);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, checkboxLayout);
+    return output;
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateMultiSpinbox(QList<QString> settings, QWidget *central)
+{
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+
+    // checkbox ---------------------------------------------------------------
+    QVBoxLayout* checkboxLayout = new QVBoxLayout();
+
+    QSpacerItem *checkboxSpacer = new QSpacerItem(20, 40);
+
+    QCheckBox *checkbox = new QCheckBox("include",central);
+
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+
+    int spinbox_number = parseWidgetNumber(settings[WIDGET_POS]);
+    for(int i = 0; i < spinbox_number; i++)
+    {
+        QList<QObject*>* widgetList = new QList<QObject*>();
+
+        // first spinbox gets parameter's body
+        QString text = "%0,";
+        if(i == 0)
+        {
+            text = settings[TEXT_POS];
+        }
+        // last one is without ","
+        else if(i == spinbox_number -1)
+        {
+            text = "%0";
+        }
+
+        Parameter* parameter = new Parameter(text, QString("0%0").arg(DONT_INCLUDE));
+
+        QSpinBox *spinbox = new QSpinBox(central);
+        spinbox->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+        spinbox->setMaximum(1000);
+        spinbox->setMinimum(-1000);
+        QObject::connect(spinbox,SIGNAL(textChanged(const QString &))
+                             ,parameter,SLOT(stringChangeSlot(const QString &)));
+        widgetList->append(spinbox);
+        innerLayout->addWidget(spinbox);
+
+
+        // connecitng checkbox to every spinbox
+        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                            ,parameter,SLOT(checkBoxSlot(const int &)));
+        widgetList->append(checkbox);
+
+        // adds parameter class to command list
+        parameter->setWidgets(widgetList);
+        parameter->setWidgetType(WidgetType::MULTISPINBOX);
+
+        command->addParameter(parameter);
+    }
+
+    QSpacerItem *spacer = new QSpacerItem(40,20);
+
+
+
+
+    // output -----------------------------------------------------------------
+    innerLayout->addSpacerItem(spacer);
+
+    widgetsLayout->addWidget(label);
+    widgetsLayout->addLayout(innerLayout);
+
+    checkboxLayout->addSpacerItem(checkboxSpacer);
+    checkboxLayout->addWidget(checkbox);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, checkboxLayout);
+    return output;
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateDoubleSpinbox(QList<QString> settings, QWidget *central)
+{
+    // list of created widgets
+    QList<QObject*>* widgetList = new QList<QObject*>();
+    Parameter* parameter = new Parameter(settings[TEXT_POS], QString("0,0%0").arg(DONT_INCLUDE));
+
+
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+
+    QDoubleSpinBox *spinbox = new QDoubleSpinBox(central);
+    spinbox->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    spinbox->setMaximum(1000);
+    spinbox->setMinimum(-1000);
+    spinbox->setDecimals(1);
+    QObject::connect(spinbox,SIGNAL(textChanged(const QString &))
+                    ,parameter,SLOT(stringChangeSlot(const QString &)));
+
+    QSpacerItem *spacer = new QSpacerItem(40,20);
+
+
+    // checkbox ---------------------------------------------------------------
+    QVBoxLayout* checkboxLayout = new QVBoxLayout();
+
+    QSpacerItem *checkboxSpacer = new QSpacerItem(20, 40);
+
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
+
+
+    // output -----------------------------------------------------------------
+    widgetList->append(spinbox);
+    widgetList->append(checkbox);
+
+    innerLayout->addWidget(spinbox);
+    innerLayout->addSpacerItem(spacer);
+
+    widgetsLayout->addWidget(label);
+    widgetsLayout->addLayout(innerLayout);
+
+    checkboxLayout->addSpacerItem(checkboxSpacer);
+    checkboxLayout->addWidget(checkbox);
+
+    parameter->setWidgets(widgetList);
+    command->addParameter(parameter);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, checkboxLayout);
+    return output;
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateFileSelect(QList<QString> settings, QWidget *central)
+{
+    QList<QObject*>* widgetList = new QList<QObject*>();
+    Parameter* parameter = new Parameter(settings[TEXT_POS], DONT_INCLUDE);
+
+
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+
+    QLineEdit *line_edit = new QLineEdit(central);
+    line_edit->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed);
+    QObject::connect(line_edit,SIGNAL(textChanged(const QString &))
+                    ,parameter,SLOT(stringChangeSlot(const QString &)));
+
+    QPushButton *button = new QPushButton("...", central);
+    button->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    QObject::connect(button,&QPushButton::pressed
+                    ,parameter,&Parameter::fileSelectSlot);
+
+    QSpacerItem *spacer = new QSpacerItem(40,20);
+
+
+    // checkbox ---------------------------------------------------------------
+    QVBoxLayout* checkboxLayout = new QVBoxLayout();
+
+    QSpacerItem *checkboxSpacer = new QSpacerItem(20, 40);
+
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
+
+
+    // output -----------------------------------------------------------------
+    widgetList->append(line_edit);
+    widgetList->append(button);
+    widgetList->append(checkbox);
+
+    innerLayout->addWidget(line_edit);
+    innerLayout->addWidget(button);
+    innerLayout->addSpacerItem(spacer);
+
+    widgetsLayout->addWidget(label);
+    widgetsLayout->addLayout(innerLayout);
+
+    checkboxLayout->addSpacerItem(checkboxSpacer);
+    checkboxLayout->addWidget(checkbox);
+
+    parameter->setWidgets(widgetList);
+    command->addParameter(parameter);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, checkboxLayout);
+    return output;
+}
+
+QPair<QLayout*, QLayout*> CommandOptionsHandler::GenerateNoParameters(QWidget *central)
+{
+    // layout to hold label
+    QVBoxLayout* widgetsLayout = new QVBoxLayout();
+    widgetsLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(NO_PARAM_MESSAGE,central);
+
+    widgetsLayout->addWidget(label);
+
+    QPair<QLayout*, QLayout*> output(widgetsLayout, nullptr);
+    return output;
 }
