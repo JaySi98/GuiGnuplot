@@ -272,6 +272,7 @@ QLayout *CommandOptionsHandler::generateSpinbox(QList<QString> input, QWidget *c
     Parameter* parameter = new Parameter(input[TEXT_POS], QString("0%0").arg(DONT_INCLUDE));
 
     QSpinBox *spinbox = new QSpinBox(central);
+    spinbox->setAlignment(Qt::AlignLeft);
     spinbox->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
     spinbox->setMaximum(1000);
     spinbox->setMinimum(-1000);
@@ -282,6 +283,8 @@ QLayout *CommandOptionsHandler::generateSpinbox(QList<QString> input, QWidget *c
 
     QSpacerItem *spacer = new QSpacerItem(404, 1, QSizePolicy::Fixed, QSizePolicy::Fixed);
     inner_layout->addSpacerItem(spacer);
+
+//    inner_layout->setAlignment(Qt::AlignLeft);
 
     // when checkbox is included
     if((input.count() >= 4) && (input.last().contains("checkbox")))

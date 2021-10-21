@@ -21,10 +21,9 @@ MainWindow::MainWindow(QWidget *parent):
 
     // anything emited by other classes will be displayed
     // on plain_text_oputput widget
-    connect(gnuplot_process,&GnuplotProcess::output,
-            this,&MainWindow::output);
-    connect(command_handler,&CommandOptionsHandler::output,
-            this,&MainWindow::output);
+    connect(gnuplot_process,&GnuplotProcess::output, this,&MainWindow::output);
+    connect(gnuplot_process,&GnuplotProcess::gnuplotNotDetected, this,&MainWindow::disableCompilation);
+    connect(command_handler,&CommandOptionsHandler::output,this,&MainWindow::output);
 
     // print detected operating system
     printOS();
@@ -59,6 +58,10 @@ MainWindow::MainWindow(QWidget *parent):
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_N), this, SLOT(newFile()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_G), this, SLOT(compile()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this, SLOT(saveFile()));
+
+//    this->setMinimumSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+//    this->setMaximumSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    setWindowIcon(QIcon(":/resources/gnuplotIcon.ico"));
 }
 
 MainWindow::~MainWindow()
@@ -71,26 +74,6 @@ MainWindow::~MainWindow()
     delete command_handler;
     delete ui;
 }
-
-//void MainWindow::connectCurrentScript()
-//{
-//    QTextEdit* currentTextEdit = currentScript->getTextEdit();
-
-//    connect(currentTextEdit, SIGNAL(copyAvailable(const bool &)),
-//            ui->actionCopy,SLOT(setEnabled(const bool &)));
-
-//    connect(currentTextEdit, SIGNAL(copyAvailable(const bool &)),
-//            ui->actionCut,SLOT(setEnabled(const bool &)));
-
-//    connect(currentTextEdit, SIGNAL(undoAvailable(const bool &)),
-//            ui->actionUndo,SLOT(setEnabled(const bool &)));
-
-//    connect(currentTextEdit, SIGNAL(redoAvailable(const bool &)),
-//            ui->actionRedo,SLOT(setEnabled(const bool &)));
-
-//    connect(currentTextEdit, SIGNAL(textChanged()),
-//            this,SLOT(enableCompile()));
-//}
 
 void MainWindow::scriptChanged()
 {
@@ -109,6 +92,11 @@ bool MainWindow::isScriptAlreadyOpened(QString fileName)
     }
 
     return false;
+}
+
+void MainWindow::disableCompilation()
+{
+    ui->actionCompile->setDisabled(true);
 }
 
 void MainWindow::closeCurrentScript()

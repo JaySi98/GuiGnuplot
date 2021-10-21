@@ -34,6 +34,9 @@
 #include "script.h"
 
 #define MAX_SCRIPTS_COUNT 12
+#define WINDOW_WIDTH 1310
+#define WINDOW_HEIGHT 775
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -63,7 +66,7 @@ private slots:
     void searchCommand();
     void scriptChanged();
     void closeCurrentScript();
-//    void connectCurrentScript();
+    void disableCompilation();
 
 private:
     void closeEvent(QCloseEvent *event);

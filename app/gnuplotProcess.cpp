@@ -9,13 +9,13 @@ GnuplotProcess::GnuplotProcess(QObject *parent) : QObject(parent)
             this, &GnuplotProcess::readyReadStandardOutput);
     connect(&process, &QProcess::started,
             this, &GnuplotProcess::started);
-    connect(&process, &QProcess::stateChanged,
-            this, &GnuplotProcess::stateChanged);
     connect(&process,QOverload<int,
             QProcess::ExitStatus>::of(&QProcess::finished),
             this,&GnuplotProcess::finished);
     connect(&process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this,&GnuplotProcess::finished);
+    connect(&process, &QProcess::stateChanged,
+            this, &GnuplotProcess::stateChanged);
 
     // detecting operating system
     operating_system = QSysInfo::productType();
@@ -38,6 +38,8 @@ void GnuplotProcess::start()
     process.start(getProcess(), QStringList());
     // open gnuplot
     writeCommand("gnuplot 2>&1");
+
+    readyReadStandardOutput();
 }
 
 /*!
@@ -143,27 +145,44 @@ OutputType GnuplotProcess::checkStandardOutput(QByteArray input)
     QString phrases[6] = {"gnuplot>", "undefined variable",
                           "invalid command", "Error occured",
                           "Cannot find or open file", "No data in plot"};
+    QString noGnuplotPhrase = "'gnuplot' is not recognized as an internal or external command,"
+                              "\r\noperable program or batch file.";
 
-    for(int i = 0; i < int(sizeof(meaningless)/sizeof(*meaningless)); i++)
+    if(input_string.contains(noGnuplotPhrase))
     {
-        if(input_string.contains(meaningless[i]))
-        {
-            return OutputType::IGNORE;
-        }
+        noGnuplot = true;
+        gnuplotNotDetected();
     }
 
-    for(int i = 0; i < int(sizeof(phrases)/sizeof(*phrases)); i++)
+    if(noGnuplot)
     {
-        if(input_string.contains(phrases[i]))
-        {
-            return OutputType::ERROR;
-        }
+        emit output("Application could not detect gnuplot program.", OutputType::ERROR);
+        emit output("Try to reinstall gnuplot or add it's path to system environment variables.", OutputType::STANDARD);
+        return OutputType::IGNORE;
     }
+    else
+    {
+        for(int i = 0; i < int(sizeof(meaningless)/sizeof(*meaningless)); i++)
+        {
+            if((input_string.contains(meaningless[i])))
+            {
+                return OutputType::IGNORE;
+            }
+        }
 
-    if(input_string.contains("Done"))
-        return OutputType::SUCCESS;
+        for(int i = 0; i < int(sizeof(phrases)/sizeof(*phrases)); i++)
+        {
+            if(input_string.contains(phrases[i]))
+            {
+                return OutputType::ERROR;
+            }
+        }
 
-    return OutputType::STANDARD;
+        if(input_string.contains("Done"))
+            return OutputType::SUCCESS;
+
+        return OutputType::STANDARD;
+    }
 }
 
 /*!
@@ -176,17 +195,28 @@ void GnuplotProcess::stateChanged(QProcess::ProcessState new_state)
 
     switch (new_state)
     {
+
         case QProcess::Starting:
-            emit output("Starting Gnuplot process", OutputType::STANDARD);
-            break;
+        {
+            if(noGnuplot == false)
+            {
+                emit output("Starting Gnuplot process", OutputType::STANDARD);
+                break;
+            }
+         }
 
         case QProcess::NotRunning:
             emit output("Closing Gnuplot process", OutputType::STANDARD);
             break;
 
         case QProcess::Running:
-            emit output("Gnuplot is running", OutputType::STANDARD);
-            break;
+        {
+            if(noGnuplot == false)
+            {
+                emit output("Gnuplot is running", OutputType::STANDARD);
+                break;
+            }
+        }
     }
 }
 

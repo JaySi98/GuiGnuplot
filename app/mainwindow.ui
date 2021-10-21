@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -14,25 +17,13 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>1310</width>
-    <height>775</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1310</width>
-    <height>775</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>Qt gnuplot</string>
+   <string>GuiGnuplot</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -42,6 +33,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_5" stretch="3,4,2">
         <item>
          <widget class="QGroupBox" name="groupBox_list">
+          <property name="maximumSize">
+           <size>
+            <width>587</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="title">
            <string>Command list</string>
           </property>
@@ -57,10 +54,25 @@
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox_options">
+          <property name="maximumSize">
+           <size>
+            <width>587</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="title">
            <string>Command options</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
            <item>
             <widget class="QScrollArea" name="scrollArea_params">
              <property name="widgetResizable">
@@ -71,8 +83,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>561</width>
-                <height>207</height>
+                <width>557</width>
+                <height>202</height>
                </rect>
               </property>
              </widget>
@@ -120,6 +132,12 @@
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox_logs">
+          <property name="maximumSize">
+           <size>
+            <width>587</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="title">
            <string>Logs</string>
           </property>
@@ -170,7 +188,7 @@
      <x>0</x>
      <y>0</y>
      <width>1310</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

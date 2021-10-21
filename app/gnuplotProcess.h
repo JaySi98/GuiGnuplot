@@ -38,6 +38,7 @@ private:
     QString  operating_system;
     QProcess process;
     QString  script;
+    bool     noGnuplot = false;
 
     QString    getProcess();
     void       addCommandsToScript();
@@ -47,7 +48,7 @@ private:
 
 signals:
     void output(QString data, OutputType type);
-
+    void gnuplotNotDetected();
 
 public slots:
     void start();

@@ -18,4 +18,7 @@
     <qresource prefix="/keywords">
         <file>resources/keywords.txt</file>
     </qresource>
+    <qresource prefix="/">
+        <file>resources/gnuplotIcon.ico</file>
+    </qresource>
 </RCC>

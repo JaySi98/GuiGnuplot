@@ -6,8 +6,9 @@ CONFIG += c++11
 TARGET = GuiGnuplot
 TEMPLATE = app
 
-
 DESTDIR = $$PWD/../build
+
+RC_ICONS = resources/gnuplotIcon.ico
 
 RESOURCES += \
     Resources.qrc
