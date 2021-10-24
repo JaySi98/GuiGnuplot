@@ -1,7 +1,10 @@
 #include "script.h"
 
-Script::Script()
+Script::Script(QMainWindow* mainWindow)
 {
+    pMainWindow = mainWindow;
+    process = new GnuplotProcess(pMainWindow);
+
     textEdit = new QTextEdit();
     textEdit->setFont(QFont("Consolas", 12));
     highlighter = new Highlighter(textEdit->document());
@@ -10,8 +13,11 @@ Script::Script()
     fileName = " ";
 }
 
-Script::Script(QString fileName, QString text)
+Script::Script(QString fileName, QString text, QMainWindow* mainWindow)
 {
+    pMainWindow = mainWindow;
+    process = new GnuplotProcess(pMainWindow);
+
     textEdit = new QTextEdit();
     textEdit->setText(text);
     textEdit->setFont(QFont("Consolas", 12));
@@ -25,6 +31,9 @@ Script::~Script()
 {
     delete highlighter;
     delete textEdit;
+
+    process->stop();
+    delete  process;
 }
 
 
@@ -104,4 +113,44 @@ void Script::undo()
 void Script::redo()
 {
     textEdit->redo();
+}
+
+
+
+GnuplotProcess* Script::getProcess()
+{
+    return process;
+}
+
+QString Script::getOperatingSystem()
+{
+    return process->getOperatingSystem();
+}
+
+void Script::startProcess()
+{
+    process->start();
+}
+
+void Script::help(QString command)
+{
+    process->help(command);
+}
+
+void Script::compile()
+{
+    QString text = textEdit->toPlainText();
+    if(!text.isEmpty())
+    {
+        //output("\nGenerating graph", OutputType::STANDARD);
+
+        process->setScript(text);
+        process->generateGraph();
+    }
+    else
+    {
+        QMessageBox::warning(pMainWindow, "Empty script",
+                             "Nothing to compile",
+                             QMessageBox::Ok);
+    }
 }

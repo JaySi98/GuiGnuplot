@@ -6,10 +6,12 @@ TEST_CASE("Testing Script class")
 {
     int argc; char *argv[1];
     QApplication a(argc, argv);
+    QMainWindow window;
 
     SECTION("empty constructor test")
     {
-        Script* testScript = new Script();
+
+        Script* testScript = new Script(&window);
 
         REQUIRE(testScript->getFileName() == " ");
         REQUIRE(testScript->getText() == "");
@@ -18,14 +20,14 @@ TEST_CASE("Testing Script class")
 
     SECTION("constructor with parameters test")
     {
-        Script* testScript = new Script("name","inside");
+        Script* testScript = new Script("name","inside", &window);
 
         REQUIRE(testScript->getFileName() == "name");
         REQUIRE(testScript->getText() == "inside");
         delete testScript;
     }
 
-    Script* testScript = new Script("name","inside");
+    Script* testScript = new Script("name","inside",&window);
 
     SECTION("setText and getText test")
     {

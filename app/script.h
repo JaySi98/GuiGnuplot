@@ -3,14 +3,17 @@
 
 #include <QtCore>
 #include <QTextEdit>
+#include <QMessageBox>
 #include "highlighter.h"
+#include "gnuplotProcess.h"
+#include "QMainWindow"
 
 class Script
 {
 
 public:
-    Script();
-    Script(QString fileName, QString text);
+    Script(QMainWindow* mainWindow);
+    Script(QString fileName, QString text, QMainWindow* mainWindow);
     ~Script();
 
     QTextEdit* getTextEdit();
@@ -22,6 +25,11 @@ public:
     bool       isSaved();
     void       addCommand(QString command);
 
+    GnuplotProcess* getProcess();
+    void       startProcess();
+    QString    getOperatingSystem();
+    void       help(QString);
+    void       compile();
     void copy();
     void cut();
     void paste();
@@ -33,6 +41,10 @@ private:
     QTextEdit*   textEdit;
     QString      fileName;
     QString      previousText;
+
+    // test
+    GnuplotProcess* process;
+    QMainWindow*    pMainWindow;
 };
 
 #endif // SCRIPT_H

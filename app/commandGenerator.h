@@ -22,7 +22,7 @@
 #include <QFileDialog>
 #include <QRadioButton>
 
-#define ERROR_MESSAGE "Failed to load all parameters "
+#define ERROR_MESSAGE "Failed to load all parameters"
 
 class CommandOptionsHandler : public QObject
 {

@@ -50,12 +50,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void disableCompilation();
+    void output(QString data, OutputType type);
 
 private slots:
     void searchCommand();
     void scriptChanged();
     void closeCurrentScript();
-    void disableCompilation();
     void newFile();
     void openFile();
     void saveFile();
@@ -71,7 +73,6 @@ private slots:
 
 private:
     void closeEvent(QCloseEvent *event);
-    void output(QString data, OutputType type);
     void printOS();
     bool isScriptAlreadyOpened(QString fileName);
 
@@ -84,7 +85,7 @@ private:
     void clearCommandWidgets();
 
     Ui::MainWindow*        ui;
-    GnuplotProcess*        gnuplot_process;
+    GnuplotProcess*        gnuplotHelp;
     CommandOptionsHandler* command_handler;
 
     QList<QString>    command_list;         // list of supported gnuplot commands

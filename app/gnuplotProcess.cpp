@@ -157,7 +157,8 @@ OutputType GnuplotProcess::checkStandardOutput(QByteArray input)
     if(noGnuplot)
     {
         emit output("Application could not detect gnuplot program.", OutputType::ERROR);
-        emit output("Try to reinstall gnuplot or add it's path to system environment variables.", OutputType::STANDARD);
+        emit output("Try to reinstall gnuplot or add it's path to system environment variables.",
+                    OutputType::STANDARD);
         return OutputType::IGNORE;
     }
     else
@@ -248,7 +249,6 @@ QString GnuplotProcess::getScript()
 void GnuplotProcess::errorOccurred(QProcess::ProcessError error)
 {
     qInfo() << Q_FUNC_INFO << error;
-    emit output("Error", OutputType::ERROR);
 }
 
 /*!
@@ -262,7 +262,6 @@ void GnuplotProcess::finished(int exitcode, QProcess::ExitStatus exit_status)
     qInfo() << Q_FUNC_INFO;
     Q_UNUSED(exitcode);
     Q_UNUSED(exit_status);
-    emit output("Closing process", OutputType::STANDARD);
 }
 
 /*!

@@ -9,29 +9,23 @@ MainWindow::MainWindow(QWidget *parent):
     this->setCentralWidget(ui->centralwidget);
 
     // first script
-    currentScript = new Script();
+    currentScript = new Script(this);
     scripts.append(currentScript);
     QTextEdit* textEdit = currentScript->getTextEdit();
     QVBoxLayout* tabLayout = new QVBoxLayout(this);
     tabLayout->addWidget(textEdit);
     ui->tabWidget->currentWidget()->setLayout(tabLayout);
-
-    gnuplot_process = new GnuplotProcess(this);
-    command_handler = new CommandOptionsHandler(this);
-
-    // anything emited by other classes will be displayed
-    // on plain_text_oputput widget
-    connect(gnuplot_process,&GnuplotProcess::output, this,&MainWindow::output);
-    connect(gnuplot_process,&GnuplotProcess::gnuplotNotDetected, this,&MainWindow::disableCompilation);
-    connect(command_handler,&CommandOptionsHandler::output,this,&MainWindow::output);
-
-    // print detected operating system
+    connect(currentScript->getProcess(),&GnuplotProcess::output, this,&MainWindow::output);
+    connect(currentScript->getProcess(),&GnuplotProcess::gnuplotNotDetected, this,&MainWindow::disableCompilation);
+    currentScript->startProcess();
     printOS();
-    // open process in the background
-    gnuplot_process->start();
 
-    // loading all gnuplot commands into listWidget_commands
+    command_handler = new CommandOptionsHandler(this);
+    connect(command_handler,&CommandOptionsHandler::output,this,&MainWindow::output);
     parseCommandList();
+
+    gnuplotHelp = new GnuplotProcess(this);
+    gnuplotHelp->start();
 
     // for text editor functionality
     connect(ui->actionNew,     &QAction::triggered, this, &MainWindow::newFile);
@@ -67,8 +61,9 @@ MainWindow::~MainWindow()
     {
         delete scripts.at(i);
     }
-    delete gnuplot_process;
     delete command_handler;
+    gnuplotHelp->stop();
+    delete gnuplotHelp;
     delete ui;
 }
 
@@ -109,9 +104,8 @@ void MainWindow::output(QString data, OutputType type)
  */
 void MainWindow::printOS()
 {
-    QString system = gnuplot_process->getOperatingSystem();
-    ui->plain_text_output->append("Deteced operating system: "
-                                            + system);
+    QString system = currentScript->getOperatingSystem();
+    ui->plain_text_output->append("Detected operating system: " + system);
 }
 
 /*!
@@ -285,7 +279,7 @@ void MainWindow::showHelp()
     output("\nShowing help for \"" + selected_command->text()
            + "\" command", OutputType::STANDARD);
 
-    gnuplot_process->help(selected_command->text());
+    gnuplotHelp->help(selected_command->text());
 }
 
 /* *********************** SLOTS *********************** */
@@ -326,6 +320,8 @@ void MainWindow::closeCurrentScript()
 
             ui->tabWidget->removeTab(scriptIndex);
             scripts.removeAt(scriptIndex);
+
+            output("\nScript closed ", OutputType::STANDARD);
             delete toClose;
 
             for(int i = 0; i < scripts.count(); i++)
@@ -358,7 +354,7 @@ void MainWindow::newFile()
     int scriptsCount = scripts.count();
 
     disconnect(currentScript->getTextEdit(), nullptr, nullptr, nullptr);
-    currentScript = new Script();
+    currentScript = new Script(this);
     scripts.append(currentScript);
 
     QTextEdit* textEdit = currentScript->getTextEdit();
@@ -371,6 +367,9 @@ void MainWindow::newFile()
     ui->tabWidget->currentWidget()->setLayout(tabLayout);
 
     output("\nCreated new script", OutputType::STANDARD);
+
+    connect(currentScript->getProcess(),&GnuplotProcess::output, this,&MainWindow::output);
+    currentScript->startProcess();
 
     if(scriptsCount+1 >= MAX_SCRIPTS_COUNT)
     {
@@ -395,7 +394,7 @@ void MainWindow::openFile()
             file_stream.close();
 
             disconnect(currentScript->getTextEdit(), nullptr, nullptr, nullptr);
-            currentScript = new Script(file_open, text);
+            currentScript = new Script(file_open, text, this);
             scripts.append(currentScript);
 
             QTextEdit* textEdit = currentScript->getTextEdit();
@@ -408,6 +407,9 @@ void MainWindow::openFile()
             ui->tabWidget->currentWidget()->setLayout(tabLayout);
 
             output("\nopened " + currentScript->getFileName(), OutputType::STANDARD);
+
+            connect(currentScript->getProcess(),&GnuplotProcess::output, this,&MainWindow::output);
+            currentScript->startProcess();
          }
          else
          {
@@ -486,21 +488,7 @@ void MainWindow::saveAsFile()
  */
 void MainWindow::compile()
 {
-    QString script = currentScript->getText();
-
-    if(!script.isEmpty())
-    {
-        output("\nGenerating graph", OutputType::STANDARD);
-
-        gnuplot_process->setScript(script);
-        gnuplot_process->generateGraph();
-    }
-    else
-    {
-        QMessageBox::warning(this, "Empty script",
-                              "Nothing to compile",
-                              QMessageBox::Ok);
-    }
+    currentScript->compile();
 }
 
 void MainWindow::copy()
