@@ -1,110 +1,110 @@
-&n|fit||                  &p|%0|function|text|checkbox||                                                         &p|'%0'|from file|file selection|checkbox||                                    &p|via '%0'|via|text|checkbox||                                &p|%0|addictional arguments|text|checkbox||
-&n|pause||                &p|%0|time to wait|numeric|checkbox||                                                       &p|%0|event|selection(mouse, mouse keypress, mouse any)|checkbox||           &p|"%0"|message|text|checkbox||     
-&n|plot||                 &p|"%0"|from file|file selection|checkbox||                                                    &p|[%0:|from|numeric|checkbox||                                             &p|%0]|to|numeric|checkbox||                                        &p|%0|function|text|checkbox||                              &p|using %0|using|text|checkbox||                                                           &p|%0|addictional arguments|text|checkbox||
-&n|print||                &p|%0|expresion|text|checkbox||                         
-&n|set angles||           &p|%0|degrees/radians|selection(degrees,radians)|checkbox||                          
-&n|set arrow||            &p|%0|tag|numeric|checkbox||                                                                &p|from %0|from|float numeric|checkbox||                                      &p|to %0|to|float numeric|checkbox||                                  &p|rto %0|rto|float numeric|checkbox||                             &p|%0|head|selection(nohead,head,backhead,heads)|checkbox||                                       &p|%0|fill|selection(filled,empty,nofilled)|checkbox||                &p|%0|addictional arguments|text|checkbox||
-&n|set autoscale||        &p|%0|axes|selection(x,y,z,cb,x2,y2,xy)|checkbox||                         
-&n|set bars||             &p|%0|size|selection(small,large,fullwidth)|checkbox||            
-&n|set bmargin||          &p|%0|dimension|numeric|checkbox||                         
-&n|set border||           &p|%0|border|numeric|checkbox||                                                             &p|%0|front/back|selection(front,back,behind)|checkbox||                     &p|%0|addictional arguments|text|checkbox||    
-&n|set boxwidth||         &p|%0|width|numeric|checkbox||                                                              &p|%0|absolute/relative|selection(absolute,relative)|checkbox||             
-&n|set clabel||           &p|'%0'|format|text|checkbox||                         
-&n|set clip||             &p|%0|clip type|selection(one, two)|checkbox||                         
-&n|set cntrparam||        &p|%0|type|selection(linear,cubicspline,bspline,points,order,levels)|checkbox||              &p|%0|addictional arguments|text|checkbox||             
-&n|set colorbox||         &p|%0|vertical/horizontal|selection(vertical,horizontal)|checkbox||                          &p|%0|default/user|selection(default,user)|checkbox||                        &p|%0|border|selection(noborder,bdefault,border)|checkbox||          &p|%0|addictional arguments|text|checkbox|| 
-&n|set contour||          &p|%0|contour|selection(base,surface,both)|checkbox||                         
-&n|set datafile||         &p|%0|type|selection(fortran,missing,separator,commentschars,binary)|checkbox||                         
-&n|set decimalsign||      &p|%0|value|text|checkbox||                                                            &p|locale %0|locale|text|checkbox||                  
-&n|set dgrid3d||          &p|%0,|row size,column size,norm|multiple numerics(3)|checkbox||                                    
-&n|set dummy||            &p|%0|value|text|checkbox||                         
-&n|set errorbars||        &p|%0|size|selection(small, large, fullwidth)|checkbox||                                     &p|%0|size manually|numeric|checkbox||                                      &p|%0|front/back|selection(front,back)|checkbox||                    &p|%0|addictional arguments|text|checkbox||
-&n|set fontpath||         &p|"%0"|file path|file selection|checkbox||                         
-&n|set format||           &p|%0|axes|selection(x,y,z,cb,x2,y2,xy)|checkbox||                                           &p|"%0"|format|text|checkbox||              
-&n|set grid||             &p|polar %0|polar angle|float numeric|checkbox||                                              &p|%0|layer|selection(layerdefault,front,back)|checkbox||                    &p|linestyle %0|linestyle|text|checkbox||                      &p|%0|addictional arguments|text|checkbox||
-&n|set hidden3d||         &p|offset %0|offset|numeric|checkbox||                                                      &p|trianglepattern %0|trianglepattern|numeric|checkbox||                    &p|%0|addictional arguments|text|checkbox||                
-&n|set isosamples||       &p|%0,|iso 1, iso 2|multiple numerics(2)|checkbox||         
-&n|set key||              &p|%0|on/off|selection(on,off)|checkbox||                                                    &p|%0|inside/outside|selection(inside,outside)|checkbox||                    &p|%0|margin|selection(lmargin,rmargin,tmargin,bmargin)|checkbox||   &p|%0|left/right|selection(left,right)|checkbox||                 &p|%0|top/bottom|selection(top,bottom)|checkbox||                                                 &p|%0|vertical/horizontal|selection(vertical,horizontal)|checkbox||   &p|%0|left/right|selection(left,right)|checkbox||   &p|%0|addictional arguments|text|checkbox||           
-&n|set label||            &p|%0|tag|numeric|checkbox||                                                                &p|"%0"|text|text|checkbox||                                           &p|at %0|at|text|checkbox||                                    &p|font %0|font name and size|text|checkbox||               &p|offset %0|offset|numeric|checkbox||                                                           &p|%0|addictional arguments|text|checkbox||
-&n|set lmargin||          &p|%0|dimension|numeric|checkbox||             
-&n|set loadpath||         &p|"%0"|file path|file selection|checkbox||             
-&n|set locale||           &p|"%0"|value|text|checkbox||             
-&n|set logscale||         &p|%0|axes|selection(x,y,z,cb,x2,y2,xy)|checkbox||                                           &p|%0|base|numeric|checkbox|| 
-&n|set mapping||          &p|%0|system|selection(cartesian,spherical,cylindrical)|checkbox||             
-&n|set margin||           &p|%0|dimension|numeric|checkbox||                       
-&n|set multiplot||        &p|layout %0,|layout rows,columns|multiple numerics(2)|checkbox||                                   &p|%0|rowsfirst/columnsfirst|selection(rowsfirst,columnsfirst)|checkbox||   &p|scale %0,|scale xscale, yscale|multiple numerics(2)|checkbox||          &p|offset %0,|offset xoff, yoff|multiple numerics(2)|checkbox||         &p|%0|downwards/upwards|selection(downwards,upwards)|checkbox||                                   &p|title "%0"|title|text|checkbox||                           
-&n|set mx2tics||          &p|%0|value|text|checkbox||
-&n|set mxtics||           &p|%0|value|text|checkbox||
-&n|set my2tics||          &p|%0|value|text|checkbox||
-&n|set mytics||           &p|%0|value|text|checkbox||
-&n|set mztics||           &p|%0|value|text|checkbox||
-&n|set offsets||          &p|%0,|left,right,top,bottom|multiple numerics(4)|checkbox||  
-&n|set origin||           &p|%0,|x origin, y origin|multiple numerics(2)|checkbox||
-&n|set parametric|| 
-&n|set pm3d||             &p|%0|scan|selection(scansautomatic,scansforward,scansbackward,depthorder)|checkbox||        &p|flush %0|flush|selection(begin,center,end)|checkbox||                     &p|%0|ftriangles|selection(ftriangles,noftriangles)|checkbox||       &p|%0|clip|selection(clip1in,clip4in)|checkbox||                  &p|corners2color %0|corners2color|selection(mean,geomean,median,min,max,c1,c2,c3,c4)|checkbox||   &p|%0|implicit/explicit|selection(implicit,explicit)|checkbox||       &p|%0|addictional arguments|text|checkbox||
-&n|set palette||          &p|%0|gray/color|selection(gray,color)|checkbox||                                            &p|gamma %0|gamma|text|checkbox||                                      &p|model %0|model|selection(RGB,HSV,CMY,YIQ,XYZ)|checkbox||          &p|%0|positive/negative|selection(positive,negative)|checkbox||   &p|%0|nops_allcF/ps_allcF|selection(nops_allcF,ps_allcF)|checkbox||                               &p|%0|addictional arguments|text|checkbox||
-&n|set pointsize||        &p|%0|pointsize|numeric|checkbox||            
-&n|set polar||             
-&n|set object||           &p|%0 rect|index|numeric|checkbox||                                                         &p|from %0|from|float numeric|checkbox||                                      &p|to %0|to|float numeric|checkbox||                                  &p|rto %0|rto|float numeric|checkbox||                             &p|%0|front/back|selection(front,back,behind)|checkbox||                                          &p|%0|addictional arguments|text|checkbox||                        
-&n|set rmargin||          &p|%0|dimension|numeric|checkbox||            
-&n|set rrange||           &p|[%0 :|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                              &p|%0|addictional arguments|text|checkbox||    
-&n|set samples||          &p|%0,|sample 1, sample 2|multiple numerics(2)|checkbox||            
-&n|set size||             &p|%0|type|selection(square,ratio,noratio)|checkbox||                                        &p|%0,|x scale, y scale|multiple numerics(2)|checkbox||                            &p|%0|addictional arguments|text|checkbox||            
-&n|set style arrow||      &p|%0|index|numeric|checkbox||                                                              &p|%0|head|selection(nohead,head,heads)|checkbox||                           &p|%0|fill|selection(filled,empty,nofilled)|checkbox||               &p|%0|front/back|selection(front,back)|checkbox||                 &p|%0|addictional arguments|text|checkbox||             
-&n|set style data||       &p|%0|plotting style|text|checkbox||            
-&n|set style fill||       &p|%0|style|selection(empty,solid,pattern)|checkbox||                                        &p|%0|addictional arguments|text|checkbox||            
-&n|set style function||   &p|%0|plotting style|text|checkbox||            
-&n|set style increment||  &p|%0|deafult/user style|selection(default,user)|checkbox||            
-&n|set style line||       &p|%0|index|numeric|checkbox||                                                              &p|linetype %0|line type|text|checkbox||                               &p|linecolor %0|line color|text|checkbox||                     &p|linewidth %0|line width|numeric|checkbox||                    &p|pointtype %0|point type|text|checkbox||                                                  &p|pointsize %0|point size|numeric|checkbox||                               
-&n|set style rectangle||  &p|%0|front/back|selection(front,back)|checkbox||                                            &p|fillcolor %0|fill color|text|checkbox||                             &p|fs %0|fill style|text|checkbox||                            &p|linewidth %0|line width|numeric|checkbox||
-&n|set surface||                      
-&n|set tics||             &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|set ticslevel||        &p|%0|position|text|checkbox||            
-&n|set timestamp||        &p|"%0"|format|text|checkbox||                                                         &p|%0|top/bottom|selection(top,bottom)|checkbox||                            &p|font "%0"|font|text|checkbox||                              &p|%0|addictional arguments|text|checkbox||
-&n|set timefmt||          &p|"%0"|format|text|checkbox||            
-&n|set title||            &p|"%0"|title text|text|checkbox||                                                     &p|font "%0"|font|text|checkbox||                                      &p|%0|addictional arguments|text|checkbox||     
-&n|set tmargin||          &p|%0|dimension|numeric|checkbox||            
-&n|set trange||           &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||    
-&n|set urange||           &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||                       
-&n|set view||             &p|%0,|rot x, rot z, scale, scale z|multiple numerics(4)|checkbox||            
-&n|set vrange||           &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||    
-&n|set x2data||           &p|%0|time|text|checkbox||            
-&n|set x2dtics||             
-&n|set x2label||          &p|"%0"|label|text|checkbox||                                                          &p|font "%0"|font|text|checkbox||                                      &p|rotate by %0]|rotate by|numeric|checkbox||                       &p|%0|addictional arguments|text|checkbox||
-&n|set x2mtics||             
-&n|set x2range||          &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||    
-&n|set x2tics||           &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|set xdata||            &p|%0|time|text|checkbox||       
-&n|set xdtics||        
-&n|set xlabel||           &p|"%0"|label|text|checkbox||                                                          &p|font "%0"|font|text|checkbox||                                      &p|rotate by %0]|rotate by|numeric|checkbox||                       &p|%0|addictional arguments|text|checkbox||
-&n|set xmtics||        
-&n|set xrange||           &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||
-&n|set xtics||            &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|set xyplane||          &p|%0|position|text|checkbox||       
-&n|set y2data||           &p|%0|time|text|checkbox||       
-&n|set y2dtics||        
-&n|set y2label||          &p|"%0"|label|text|checkbox||                                                          &p|font "%0"|font|text|checkbox||                                      &p|rotate by %0]|rotate by|numeric|checkbox||                       &p|%0|addictional arguments|text|checkbox||
-&n|set y2mtics||        
-&n|set y2range||          &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||
-&n|set y2tics||           &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|set ydata||            &p|%0|time|text|checkbox||       
-&n|set ydtics||        
-&n|set ylabel||           &p|"%0"|label|text|checkbox||                                                          &p|font "%0"|font|text|checkbox||                                      &p|rotate by %0]|rotate by|numeric|checkbox||                       &p|%0|addictional arguments|text|checkbox||
-&n|set ymtics||         
-&n|set yrange||           &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||
-&n|set ytics||            &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|set zdata||            &p|%0|time|text|checkbox||       
-&n|set zdtics||        
-&n|set cbdata||           &p|%0|time|text|checkbox||       
-&n|set cbdtics||       
-&n|set zero||             &p|%0|expresion|text|checkbox||       
-&n|set zlabel||           &p|"%0"|label|text|checkbox||                                                          &p|font "%0"|font|text|checkbox||                                      &p|rotate by %0]|rotate by|numeric|checkbox||                       &p|%0|addictional arguments|text|checkbox||
-&n|set zmtics||       
-&n|set zrange||           &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||
-&n|set ztics||            &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|set cblabel||          &p|"%0"|label|text|checkbox||                                                          &p|font "%0"|font|text|checkbox||                                      &p|rotate by %0]|rotate by|numeric|checkbox||                       &p|%0|addictional arguments|text|checkbox||
-&n|set cbmtics||        
-&n|set cbrange||          &p|[%0:|min|numeric|checkbox||                                                              &p|%0]|max|numeric|checkbox||                                               &p|%0|addictional arguments|text|checkbox||
-&n|set cbtics||           &p|%0|axis/border|selection(axis,border)|checkbox||                                          &p|%0|in/out|selection(in,out)|checkbox||                                    &p|scale %0|scale|selection(default,major,minor)|checkbox||          &p|offset %0|offset|numeric|checkbox||                           &p|font "%0"|font|text|checkbox||                                                           &p|textcolor %0|textcolor|text|checkbox||
-&n|splot||                &p|%0|function|text|checkbox||                                                         &p|"%0"|from file|file selection|checkbox||                                    &p|[%0:|from|float numeric|checkbox||                                 &p|%0]|to|float numeric|checkbox||                                 &p|%0|addictional arguments|text|checkbox||
-&n|unset||                &p|%0|command|text|checkbox||
+&n|fit||                 &p|%0|function|text|checkbox||  &p|'%0'|from file|file selection|checkbox||  &p|via '%0'|via|text|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|pause||               &p|%0|time to wait|numeric|checkbox||  &p|%0|event|selection(mouse, mouse keypress, mouse any)|checkbox||  &p|"%0"|message|text|checkbox|| 
+&n|plot||                &p|"%0"|from file|file selection|checkbox||  &p|[%0:|from|numeric|checkbox||  &p|%0]|to|numeric|checkbox||  &p|%0|function|text|checkbox||  &p|using %0|using|text|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|print||               &p|%0|expresion|text|checkbox|| 
+&n|set angles||          &p|%0|degrees/radians|selection(degrees,radians)|checkbox|| 
+&n|set arrow||           &p|%0|tag|numeric|checkbox||  &p|from %0|from|float numeric|checkbox||  &p|to %0|to|float numeric|checkbox||  &p|rto %0|rto|float numeric|checkbox||  &p|%0|head|selection(nohead,head,backhead,heads)|checkbox||  &p|%0|fill|selection(filled,empty,nofilled)|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set autoscale||       &p|%0|axes|selection(x,y,z,cb,x2,y2,xy)|checkbox|| 
+&n|set bars||            &p|%0|size|selection(small,large,fullwidth)|checkbox|| 
+&n|set bmargin||         &p|%0|dimension|numeric|checkbox|| 
+&n|set border||          &p|%0|border|numeric|checkbox||  &p|%0|front/back|selection(front,back,behind)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set boxwidth||        &p|%0|width|numeric|checkbox||  &p|%0|absolute/relative|selection(absolute,relative)|checkbox|| 
+&n|set clabel||          &p|'%0'|format|text|checkbox|| 
+&n|set clip||            &p|%0|clip type|selection(one, two)|checkbox|| 
+&n|set cntrparam||       &p|%0|type|selection(linear,cubicspline,bspline,points,order,levels)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set colorbox||        &p|%0|vertical/horizontal|selection(vertical,horizontal)|checkbox||  &p|%0|default/user|selection(default,user)|checkbox||  &p|%0|border|selection(noborder,bdefault,border)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set contour||         &p|%0|contour|selection(base,surface,both)|checkbox|| 
+&n|set datafile||        &p|%0|type|selection(fortran,missing,separator,commentschars,binary)|checkbox|| 
+&n|set decimalsign||     &p|%0|value|text|checkbox||  &p|locale %0|locale|text|checkbox|| 
+&n|set dgrid3d||         &p|%0,|row size,column size,norm|multiple numerics(3)|checkbox|| 
+&n|set dummy||           &p|%0|value|text|checkbox|| 
+&n|set errorbars||       &p|%0|size|selection(small, large, fullwidth)|checkbox||  &p|%0|size manually|numeric|checkbox||  &p|%0|front/back|selection(front,back)|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set fontpath||        &p|"%0"|file path|file selection|checkbox|| 
+&n|set format||          &p|%0|axes|selection(x,y,z,cb,x2,y2,xy)|checkbox||  &p|"%0"|format|text|checkbox|| 
+&n|set grid||            &p|polar %0|polar angle|float numeric|checkbox||  &p|%0|layer|selection(layerdefault,front,back)|checkbox||  &p|linestyle %0|linestyle|text|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set hidden3d||        &p|offset %0|offset|numeric|checkbox||  &p|trianglepattern %0|trianglepattern|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set isosamples||      &p|%0,|iso 1, iso 2|multiple numerics(2)|checkbox|| 
+&n|set key||             &p|%0|on/off|selection(on,off)|checkbox||  &p|%0|inside/outside|selection(inside,outside)|checkbox||  &p|%0|margin|selection(lmargin,rmargin,tmargin,bmargin)|checkbox||  &p|%0|left/right|selection(left,right)|checkbox||  &p|%0|top/bottom|selection(top,bottom)|checkbox||  &p|%0|vertical/horizontal|selection(vertical,horizontal)|checkbox||  &p|%0|left/right|selection(left,right)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set label||           &p|%0|tag|numeric|checkbox||  &p|"%0"|text|text|checkbox||  &p|at %0|at|text|checkbox||  &p|font %0|font name and size|text|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set lmargin||         &p|%0|dimension|numeric|checkbox|| 
+&n|set loadpath||        &p|"%0"|file path|file selection|checkbox|| 
+&n|set locale||          &p|"%0"|value|text|checkbox|| 
+&n|set logscale||        &p|%0|axes|selection(x,y,z,cb,x2,y2,xy)|checkbox||  &p|%0|base|numeric|checkbox|| 
+&n|set mapping||         &p|%0|system|selection(cartesian,spherical,cylindrical)|checkbox|| 
+&n|set margin||          &p|%0|dimension|numeric|checkbox|| 
+&n|set multiplot||       &p|layout %0,|layout rows,columns|multiple numerics(2)|checkbox||  &p|%0|rowsfirst/columnsfirst|selection(rowsfirst,columnsfirst)|checkbox||  &p|scale %0,|scale xscale, yscale|multiple numerics(2)|checkbox||  &p|offset %0,|offset xoff, yoff|multiple numerics(2)|checkbox||  &p|%0|downwards/upwards|selection(downwards,upwards)|checkbox||  &p|title "%0"|title|text|checkbox|| 
+&n|set mx2tics||         &p|%0|value|text|checkbox||
+&n|set mxtics||          &p|%0|value|text|checkbox||
+&n|set my2tics||         &p|%0|value|text|checkbox||
+&n|set mytics||          &p|%0|value|text|checkbox||
+&n|set mztics||          &p|%0|value|text|checkbox||
+&n|set offsets||         &p|%0,|left,right,top,bottom|multiple numerics(4)|checkbox|| 
+&n|set origin||          &p|%0,|x origin, y origin|multiple numerics(2)|checkbox||
+&n|set parametric||      &p|no parameters||
+&n|set pm3d||            &p|%0|scan|selection(scansautomatic,scansforward,scansbackward,depthorder)|checkbox||  &p|flush %0|flush|selection(begin,center,end)|checkbox||  &p|%0|ftriangles|selection(ftriangles,noftriangles)|checkbox||  &p|%0|clip|selection(clip1in,clip4in)|checkbox||  &p|corners2color %0|corners2color|selection(mean,geomean,median,min,max,c1,c2,c3,c4)|checkbox||  &p|%0|implicit/explicit|selection(implicit,explicit)|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set palette||         &p|%0|gray/color|selection(gray,color)|checkbox||  &p|gamma %0|gamma|text|checkbox||  &p|model %0|model|selection(RGB,HSV,CMY,YIQ,XYZ)|checkbox||  &p|%0|positive/negative|selection(positive,negative)|checkbox||  &p|%0|nops_allcF/ps_allcF|selection(nops_allcF,ps_allcF)|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set pointsize||       &p|%0|pointsize|numeric|checkbox|| 
+&n|set polar||           &p|no parameters||
+&n|set object||          &p|%0 rect|index|numeric|checkbox||  &p|from %0|from|float numeric|checkbox||  &p|to %0|to|float numeric|checkbox||  &p|rto %0|rto|float numeric|checkbox||  &p|%0|front/back|selection(front,back,behind)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set rmargin||         &p|%0|dimension|numeric|checkbox|| 
+&n|set rrange||          &p|[%0 :|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set samples||         &p|%0,|sample 1, sample 2|multiple numerics(2)|checkbox|| 
+&n|set size||            &p|%0|type|selection(square,ratio,noratio)|checkbox||  &p|%0,|x scale, y scale|multiple numerics(2)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set style arrow||     &p|%0|index|numeric|checkbox||  &p|%0|head|selection(nohead,head,heads)|checkbox||  &p|%0|fill|selection(filled,empty,nofilled)|checkbox||  &p|%0|front/back|selection(front,back)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set style data||      &p|%0|plotting style|text|checkbox|| 
+&n|set style fill||      &p|%0|style|selection(empty,solid,pattern)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set style function||  &p|%0|plotting style|text|checkbox|| 
+&n|set style increment|| &p|%0|deafult/user style|selection(default,user)|checkbox|| 
+&n|set style line||      &p|%0|index|numeric|checkbox||  &p|linetype %0|line type|text|checkbox||  &p|linecolor %0|line color|text|checkbox||  &p|linewidth %0|line width|numeric|checkbox||  &p|pointtype %0|point type|text|checkbox||  &p|pointsize %0|point size|numeric|checkbox|| 
+&n|set style rectangle|| &p|%0|front/back|selection(front,back)|checkbox||  &p|fillcolor %0|fill color|text|checkbox||  &p|fs %0|fill style|text|checkbox||  &p|linewidth %0|line width|numeric|checkbox||
+&n|set surface||         &p|no parameters||
+&n|set tics||            &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|set ticslevel||       &p|%0|position|text|checkbox|| 
+&n|set timestamp||       &p|"%0"|format|text|checkbox||  &p|%0|top/bottom|selection(top,bottom)|checkbox||  &p|font "%0"|font|text|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set timefmt||         &p|"%0"|format|text|checkbox|| 
+&n|set title||           &p|"%0"|title text|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set tmargin||         &p|%0|dimension|numeric|checkbox|| 
+&n|set trange||          &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set urange||          &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set view||            &p|%0,|rot x, rot z, scale, scale z|multiple numerics(4)|checkbox|| 
+&n|set vrange||          &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set x2data||          &p|%0|time|text|checkbox|| 
+&n|set x2dtics||         &p|no parameters||
+&n|set x2label||         &p|"%0"|label|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|rotate by %0]|rotate by|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set x2mtics||         &p|no parameters||
+&n|set x2range||         &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set x2tics||          &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|set xdata||           &p|%0|time|text|checkbox|| 
+&n|set xdtics||          &p|no parameters||
+&n|set xlabel||          &p|"%0"|label|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|rotate by %0]|rotate by|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set xmtics||          &p|no parameters||
+&n|set xrange||          &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set xtics||           &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|set xyplane||         &p|%0|position|text|checkbox|| 
+&n|set y2data||          &p|%0|time|text|checkbox|| 
+&n|set y2dtics||         &p|no parameters||
+&n|set y2label||         &p|"%0"|label|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|rotate by %0]|rotate by|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set y2mtics||         &p|no parameters||
+&n|set y2range||         &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set y2tics||          &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|set ydata||           &p|%0|time|text|checkbox|| 
+&n|set ydtics||          &p|no parameters||
+&n|set ylabel||          &p|"%0"|label|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|rotate by %0]|rotate by|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set ymtics||          &p|no parameters||
+&n|set yrange||          &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set ytics||           &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|set zdata||           &p|%0|time|text|checkbox|| 
+&n|set zdtics||          &p|no parameters||
+&n|set cbdata||          &p|%0|time|text|checkbox|| 
+&n|set cbdtics||         &p|no parameters||
+&n|set zero||            &p|%0|expresion|text|checkbox|| 
+&n|set zlabel||          &p|"%0"|label|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|rotate by %0]|rotate by|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set zmtics||          &p|no parameters||
+&n|set zrange||          &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set ztics||           &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|set cblabel||         &p|"%0"|label|text|checkbox||  &p|font "%0"|font|text|checkbox||  &p|rotate by %0]|rotate by|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set cbmtics||         &p|no parameters||
+&n|set cbrange||         &p|[%0:|min|numeric|checkbox||  &p|%0]|max|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|set cbtics||          &p|%0|axis/border|selection(axis,border)|checkbox||  &p|%0|in/out|selection(in,out)|checkbox||  &p|scale %0|scale|selection(default,major,minor)|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|font "%0"|font|text|checkbox||  &p|textcolor %0|textcolor|text|checkbox||
+&n|splot||               &p|%0|function|text|checkbox||  &p|"%0"|from file|file selection|checkbox||  &p|[%0:|from|float numeric|checkbox||  &p|%0]|to|float numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
+&n|unset||               &p|%0|command|text|checkbox||

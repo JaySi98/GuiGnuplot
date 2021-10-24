@@ -244,8 +244,8 @@ void MainWindow::setCommandWidgets()
 {
     QScrollArea *scroll_area = qobject_cast<QScrollArea*>(ui->scrollArea_params);
 
-//    QWidget *central = command_handler->getCommandWidgets(selected_command->text(),selected_command_num);
-    QWidget *central = command_handler->GetGridLayout(selected_command->text(),selected_command_num);
+    QWidget *central = command_handler->getCommandWidgets(selected_command->text(),selected_command_num);
+//    QWidget *central = command_handler->GetGridLayout(selected_command->text(),selected_command_num);
 
     scroll_area->setWidget(central);
 }

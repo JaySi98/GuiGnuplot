@@ -41,7 +41,6 @@ QString parseSingleSetting(QString line)
     int length = setting_end_pos - setting_start_pos;
     // removes outer "|" signs
     output = line.mid(setting_start_pos+1,length-1);
-    //qDebug() << output;
     return output;
 }
 
