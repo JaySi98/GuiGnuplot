@@ -127,6 +127,8 @@ QLayout *CommandOptionsHandler::generateParameter(QList<QString>settings, QWidge
 
         case WidgetType::FILE_SEARCH:    return generateFileSearch(settings, central); break;
 
+        case WidgetType::RANGE: return generateRangeWidget(settings, central); break;
+
         case WidgetType::NO_PARAMS:      return generateNoParametersLabel(central);
 
         case WidgetType::INVALID:        return nullptr;
@@ -146,6 +148,7 @@ WidgetType CommandOptionsHandler::resolveParameter(QString input)
     if(input.contains("float numeric"))     return WidgetType::DOUBLE_SPINBOX;
     if(input.contains("multiple numerics")) return WidgetType::MULTISPINBOX;
     if(input.contains("numeric") )          return WidgetType::SPINBOX;
+    if(input.contains("range"))             return WidgetType::RANGE;
     if(input.contains("no parameters"))     return WidgetType::NO_PARAMS;
 
     return WidgetType::INVALID;
@@ -531,6 +534,82 @@ QLayout *CommandOptionsHandler::generateFileSearch(QList<QString> settings, QWid
     return labelLayout;
 }
 
+/*!
+ * @brief Function to geretate range "[:]" parameter
+ * @param QList<QString> settings - &p|...|| splited by "|"
+ * @param QWidget* central - pointer to parent widget
+ * @return QLayout*
+ */
+QLayout* CommandOptionsHandler::generateRangeWidget(QList<QString> settings, QWidget *central)
+{
+    // top layout with label --------------------------------------------------
+    QVBoxLayout* labelLayout = new QVBoxLayout();
+    labelLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+
+    // informative label on top of rest widgets
+    QLabel *label = new QLabel(settings[LABEL_POS],central);
+    label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+
+    // checkbox ---------------------------------------------------------------
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+
+
+    // inner layout with editing widgets --------------------------------------
+    QHBoxLayout *innerLayout = new QHBoxLayout();
+    innerLayout->setSizeConstraint(QLayout::SetFixedSize);
+
+    for(int i = 0; i < 2; i++)
+    {
+        QList<QObject*>* widget_list = new QList<QObject*>();
+
+        // first spinbox
+        QString text = " ";
+        if(i == 0)
+        {
+            text = "[%0 :";
+        }
+        // second spinbox
+        else if(i == 1)
+        {
+            text = "%0]";
+        }
+
+        Parameter* parameter = new Parameter(text, QString("0%0").arg(DONT_INCLUDE));
+
+        QSpinBox *spinbox = new QSpinBox(central);
+        spinbox->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+        spinbox->setMinimumWidth(100);
+        spinbox->setMaximum(1000);
+        spinbox->setMinimum(-1000);
+        QObject::connect(spinbox,SIGNAL(textChanged(const QString &))
+                             ,parameter,SLOT(stringChangeSlot(const QString &)));
+        widget_list->append(spinbox);
+        innerLayout->addWidget(spinbox);
+
+        // connecitng checkbox to every spinbox
+        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                        ,parameter,SLOT(checkBoxSlot(const int &)));
+        widget_list->append(checkbox);
+
+        // adds parameter class to command list
+        parameter->setWidgets(widget_list);
+        parameter->setWidgetType(WidgetType::MULTISPINBOX);
+
+        command->addParameter(parameter);
+    }
+
+    // spacer for astetics
+    QSpacerItem *spacer = new QSpacerItem(100, 1, QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    innerLayout->addSpacerItem(spacer);
+    innerLayout->addWidget(checkbox);
+
+    labelLayout->addWidget(label);
+    labelLayout->addLayout(innerLayout);
+
+    return labelLayout;
+}
 
 /*!
  * @brief If command has no parameters this is used to inform about it
@@ -569,3 +648,4 @@ QString CommandOptionsHandler::parseFileLine(QString line)
 
     return command_name;
 }
+

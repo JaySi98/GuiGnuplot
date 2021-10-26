@@ -1,6 +1,6 @@
 &n|fit||                 &p|%0|function|text||  &p|'%0'|from file|file selection||  &p|via '%0'|via|text||  &p|%0|addictional arguments|text||
 &n|pause||               &p|%0|time to wait|numeric||  &p|%0|event|selection(mouse, mouse keypress, mouse any)||  &p|"%0"|message|text|| 
-&n|plot||                &p|"%0"|from file|file selection||  &p|[%0:|from|numeric||  &p|%0]|to|numeric||  &p|%0|function|text||  &p|using %0|using|text||  &p|%0|addictional arguments|text||
+&n|plot||                &p|"%0"|from file|file selection||  &p|%0|from-to|range||  &p|%0|function|text||  &p|using %0|using|text||  &p|%0|addictional arguments|text||
 &n|print||               &p|"%0"|expresion|text|| 
 &n|set angles||          &p|%0|degrees/radians|selection(degrees,radians)|| 
 &n|set arrow||           &p|%0|tag|numeric||  &p|from %0|from|float numeric||  &p|to %0|to|float numeric||  &p|rto %0|rto|float numeric||  &p|%0|head|selection(nohead,head,backhead,heads)||  &p|%0|fill|selection(filled,empty,nofilled)||  &p|%0|addictional arguments|text||
@@ -47,7 +47,7 @@
 &n|set polar||           &p|no parameters||
 &n|set object||          &p|%0 rect|index|numeric||  &p|from %0|from|float numeric||  &p|to %0|to|float numeric||  &p|rto %0|rto|float numeric||  &p|%0|front/back|selection(front,back,behind)||  &p|%0|addictional arguments|text|| 
 &n|set rmargin||         &p|%0|dimension|numeric|| 
-&n|set rrange||          &p|[%0 :|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text|| 
+&n|set rrange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text|| 
 &n|set samples||         &p|%0,|sample 1, sample 2|multiple numerics(2)|| 
 &n|set size||            &p|%0|type|selection(square,ratio,noratio)||  &p|%0,|x scale, y scale|multiple numerics(2)||  &p|%0|addictional arguments|text|| 
 &n|set style arrow||     &p|%0|index|numeric||  &p|%0|head|selection(nohead,head,heads)||  &p|%0|fill|selection(filled,empty,nofilled)||  &p|%0|front/back|selection(front,back)||  &p|%0|addictional arguments|text|| 
@@ -64,34 +64,34 @@
 &n|set timefmt||         &p|"%0"|format|text|| 
 &n|set title||           &p|"%0"|title text|text||  &p|font "%0"|font|text||  &p|%0|addictional arguments|text|| 
 &n|set tmargin||         &p|%0|dimension|numeric|| 
-&n|set trange||          &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text|| 
-&n|set urange||          &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text|| 
+&n|set trange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text|| 
+&n|set urange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text|| 
 &n|set view||            &p|%0,|rot x, rot z, scale, scale z|multiple numerics(4)|| 
-&n|set vrange||          &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text|| 
+&n|set vrange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text|| 
 &n|set x2data||          &p|%0|time|text|| 
 &n|set x2dtics||         &p|no parameters||
 &n|set x2label||         &p|"%0"|label|text||  &p|font "%0"|font|text||  &p|rotate by %0]|rotate by|numeric||  &p|%0|addictional arguments|text||
 &n|set x2mtics||         &p|no parameters||
-&n|set x2range||         &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text|| 
+&n|set x2range||         &p|%0|min-max|range||  &p|%0|addictional arguments|text|| 
 &n|set x2tics||          &p|%0|axis/border|selection(axis,border)||  &p|%0|in/out|selection(in,out)||  &p|scale %0|scale|selection(default,major,minor)||  &p|offset %0|offset|numeric||  &p|font "%0"|font|text||  &p|textcolor %0|textcolor|text||
 &n|set xdata||           &p|%0|time|text|| 
 &n|set xdtics||          &p|no parameters||
 &n|set xlabel||          &p|"%0"|label|text||  &p|font "%0"|font|text||  &p|rotate by %0]|rotate by|numeric||  &p|%0|addictional arguments|text||
 &n|set xmtics||          &p|no parameters||
-&n|set xrange||          &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text||
+&n|set xrange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text||
 &n|set xtics||           &p|%0|axis/border|selection(axis,border)||  &p|%0|in/out|selection(in,out)||  &p|scale %0|scale|selection(default,major,minor)||  &p|offset %0|offset|numeric||  &p|font "%0"|font|text||  &p|textcolor %0|textcolor|text||
 &n|set xyplane||         &p|%0|position|text|| 
 &n|set y2data||          &p|%0|time|text|| 
 &n|set y2dtics||         &p|no parameters||
 &n|set y2label||         &p|"%0"|label|text||  &p|font "%0"|font|text||  &p|rotate by %0]|rotate by|numeric||  &p|%0|addictional arguments|text||
 &n|set y2mtics||         &p|no parameters||
-&n|set y2range||         &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text||
+&n|set y2range||         &p|%0|min-max|range||  &p|%0|addictional arguments|text||
 &n|set y2tics||          &p|%0|axis/border|selection(axis,border)||  &p|%0|in/out|selection(in,out)||  &p|scale %0|scale|selection(default,major,minor)||  &p|offset %0|offset|numeric||  &p|font "%0"|font|text||  &p|textcolor %0|textcolor|text||
 &n|set ydata||           &p|%0|time|text|| 
 &n|set ydtics||          &p|no parameters||
 &n|set ylabel||          &p|"%0"|label|text||  &p|font "%0"|font|text||  &p|rotate by %0]|rotate by|numeric||  &p|%0|addictional arguments|text||
 &n|set ymtics||          &p|no parameters||
-&n|set yrange||          &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text||
+&n|set yrange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text||
 &n|set ytics||           &p|%0|axis/border|selection(axis,border)||  &p|%0|in/out|selection(in,out)||  &p|scale %0|scale|selection(default,major,minor)||  &p|offset %0|offset|numeric||  &p|font "%0"|font|text||  &p|textcolor %0|textcolor|text||
 &n|set zdata||           &p|%0|time|text|| 
 &n|set zdtics||          &p|no parameters||
@@ -100,11 +100,11 @@
 &n|set zero||            &p|%0|expresion|text|| 
 &n|set zlabel||          &p|"%0"|label|text||  &p|font "%0"|font|text||  &p|rotate by %0]|rotate by|numeric||  &p|%0|addictional arguments|text||
 &n|set zmtics||          &p|no parameters||
-&n|set zrange||          &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text||
+&n|set zrange||          &p|%0|min-max|range||  &p|%0|addictional arguments|text||
 &n|set ztics||           &p|%0|axis/border|selection(axis,border)||  &p|%0|in/out|selection(in,out)||  &p|scale %0|scale|selection(default,major,minor)||  &p|offset %0|offset|numeric||  &p|font "%0"|font|text||  &p|textcolor %0|textcolor|text||
 &n|set cblabel||         &p|"%0"|label|text||  &p|font "%0"|font|text||  &p|rotate by %0]|rotate by|numeric||  &p|%0|addictional arguments|text||
 &n|set cbmtics||         &p|no parameters||
-&n|set cbrange||         &p|[%0:|min|numeric||  &p|%0]|max|numeric||  &p|%0|addictional arguments|text||
+&n|set cbrange||         &p|%0|min-max|range||  &p|%0|addictional arguments|text||
 &n|set cbtics||          &p|%0|axis/border|selection(axis,border)||  &p|%0|in/out|selection(in,out)||  &p|scale %0|scale|selection(default,major,minor)||  &p|offset %0|offset|numeric||  &p|font "%0"|font|text||  &p|textcolor %0|textcolor|text||
-&n|splot||               &p|%0|function|text||  &p|"%0"|from file|file selection||  &p|[%0:|from|float numeric||  &p|%0]|to|float numeric||  &p|%0|addictional arguments|text||
+&n|splot||               &p|%0|function|text||  &p|"%0"|from file|file selection||  &p|%0|from-to|range||  &p|%0|addictional arguments|text||
 &n|unset||               &p|%0|command|text||

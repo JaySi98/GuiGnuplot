@@ -47,7 +47,9 @@ public:
     QLayout* generateMultiSpinbox(QList<QString>, QWidget *central);
     QLayout* generateDoubleSpinbox(QList<QString>, QWidget *central);
     QLayout* generateFileSearch(QList<QString>, QWidget *central);
+    QLayout* generateRangeWidget(QList<QString>, QWidget *central);
     QLayout* generateNoParametersLabel(QWidget *central);
+
 
 private:
     QMainWindow*    pMainWindow;
