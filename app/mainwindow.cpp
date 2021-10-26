@@ -175,11 +175,14 @@ void MainWindow::parseCommandList()
           QString command_name;
 
           // commandHandler returns command name and holds the rest in list
-          command_name = command_handler->parseFileLine(line);
+          if(!line.isEmpty())
+          {
+            command_name = command_handler->parseFileLine(line);
 
-          command_list << command_name;
+            command_list << command_name;
 
-          ui->listWidget_commands->addItem(command_name);
+            ui->listWidget_commands->addItem(command_name);
+          }
        }
        inputFile.close();
     }

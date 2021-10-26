@@ -190,16 +190,14 @@ QLayout *CommandOptionsHandler::generateLineEdit(QList<QString> settings, QWidge
     innerLayout->addSpacerItem(spacer);
 
     // checkbox ---------------------------------------------------------------
-    if((settings.count() >= 4) && (settings.last().contains("checkbox")))
-    {
-        QCheckBox *checkbox = new QCheckBox("include",central);
-        checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
-                        ,parameter,SLOT(checkBoxSlot(const int &)));
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
 
-        widgetLayout->append(checkbox);
-        innerLayout->addWidget(checkbox);
-    }
+    widgetLayout->append(checkbox);
+    innerLayout->addWidget(checkbox);
+
 
     labelLayout->addWidget(label);
     labelLayout->addLayout(innerLayout);
@@ -255,16 +253,13 @@ QLayout *CommandOptionsHandler::generateCombobox(QList<QString> settings, QWidge
     innerLayout->addSpacerItem(spacer);
 
     // checkbox ---------------------------------------------------------------
-    if((settings.count() >= 4) && (settings.last().contains("checkbox")))
-    {
-        QCheckBox *checkbox = new QCheckBox("include",central);
-        checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
-                        ,parameter,SLOT(checkBoxSlot(const int &)));
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
 
-        widgetList->append(checkbox);
-        innerLayout->addWidget(checkbox);
-    }
+    widgetList->append(checkbox);
+    innerLayout->addWidget(checkbox);
 
     labelLayout->addWidget(label);
     labelLayout->addLayout(innerLayout);
@@ -316,16 +311,13 @@ QLayout *CommandOptionsHandler::generateSpinbox(QList<QString> settings, QWidget
     innerLayout->addSpacerItem(spacer);
 
     // checkbox ---------------------------------------------------------------
-    if((settings.count() >= 4) && (settings.last().contains("checkbox")))
-    {
-        QCheckBox *checkbox = new QCheckBox("include",central);
-        checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
-                        ,parameter,SLOT(checkBoxSlot(const int &)));
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
 
-        widgetList->append(checkbox);
-        innerLayout->addWidget(checkbox);
-    }
+    widgetList->append(checkbox);
+    innerLayout->addWidget(checkbox);
 
     labelLayout->addWidget(label);
     labelLayout->addLayout(innerLayout);
@@ -354,13 +346,8 @@ QLayout *CommandOptionsHandler::generateMultiSpinbox(QList<QString> settings, QW
     label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
     // checkbox ---------------------------------------------------------------
-    QCheckBox* checkbox_pointer = nullptr;
-    if((settings.count() >= 4) && (settings.last().contains("checkbox")))
-    {
-        QCheckBox *checkbox = new QCheckBox("include",central);
-        checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-        checkbox_pointer = checkbox;
-    }
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
 
 
     // inner layout with editing widgets --------------------------------------
@@ -397,12 +384,9 @@ QLayout *CommandOptionsHandler::generateMultiSpinbox(QList<QString> settings, QW
         innerLayout->addWidget(spinbox);
 
         // connecitng checkbox to every spinbox
-        if(checkbox_pointer != nullptr)
-        {
-            QObject::connect(checkbox_pointer,SIGNAL(stateChanged(const int &))
-                            ,parameter,SLOT(checkBoxSlot(const int &)));
-            widget_list->append(checkbox_pointer);
-        }
+        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                        ,parameter,SLOT(checkBoxSlot(const int &)));
+        widget_list->append(checkbox);
 
         // adds parameter class to command list
         parameter->setWidgets(widget_list);
@@ -415,8 +399,7 @@ QLayout *CommandOptionsHandler::generateMultiSpinbox(QList<QString> settings, QW
     QSpacerItem *spacer = new QSpacerItem(100, 1, QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     innerLayout->addSpacerItem(spacer);
-    if(checkbox_pointer != nullptr)
-        innerLayout->addWidget(checkbox_pointer);
+    innerLayout->addWidget(checkbox);
 
     labelLayout->addWidget(label);
     labelLayout->addLayout(innerLayout);
@@ -465,15 +448,13 @@ QLayout *CommandOptionsHandler::generateDoubleSpinbox(QList<QString> settings, Q
     innerLayout->addSpacerItem(spacer);
 
     // checkbox ---------------------------------------------------------------
-    if((settings.count() >= 4) && (settings.last().contains("checkbox")))
-    {
-        QCheckBox *checkbox = new QCheckBox("include",central);
-        checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
-                            ,parameter,SLOT(checkBoxSlot(const int &)));
-        widgetList->append(checkbox);
-        innerLayout->addWidget(checkbox);
-    }
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                        ,parameter,SLOT(checkBoxSlot(const int &)));
+    widgetList->append(checkbox);
+    innerLayout->addWidget(checkbox);
+
 
     labelLayout->addWidget(label);
     labelLayout->addLayout(innerLayout);
@@ -530,16 +511,14 @@ QLayout *CommandOptionsHandler::generateFileSearch(QList<QString> settings, QWid
     innerLayout->addSpacerItem(spacer);
 
     // checkbox ---------------------------------------------------------------
-    if((settings.count() >= 4) && (settings.last().contains("checkbox")))
-    {
-        QCheckBox *checkbox = new QCheckBox("include",central);
-        checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-        QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
-                        ,parameter,SLOT(checkBoxSlot(const int &)));
+    QCheckBox *checkbox = new QCheckBox("include",central);
+    checkbox->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+    QObject::connect(checkbox,SIGNAL(stateChanged(const int &))
+                    ,parameter,SLOT(checkBoxSlot(const int &)));
 
-        widgetList->append(checkbox);
-        innerLayout->addWidget(checkbox);
-    }
+    widgetList->append(checkbox);
+    innerLayout->addWidget(checkbox);
+
 
     labelLayout->addWidget(label);
     labelLayout->addLayout(innerLayout);
