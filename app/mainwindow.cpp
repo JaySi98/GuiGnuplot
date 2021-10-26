@@ -433,7 +433,8 @@ void MainWindow::openFile()
 
 void MainWindow::saveFile()
 {
-    if(currentScript->getFileName().isEmpty())
+    if((currentScript->getFileName().isEmpty()) ||
+        (currentScript->getFileName() == " "))
     {
         QString fileName = QFileDialog::getSaveFileName(this, "Save file","../",
                                                         tr("Text files (*.txt)"));

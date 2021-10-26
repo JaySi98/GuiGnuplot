@@ -24,7 +24,7 @@
 &n|set grid||            &p|polar %0|polar angle|float numeric|checkbox||  &p|%0|layer|selection(layerdefault,front,back)|checkbox||  &p|linestyle %0|linestyle|text|checkbox||  &p|%0|addictional arguments|text|checkbox||
 &n|set hidden3d||        &p|offset %0|offset|numeric|checkbox||  &p|trianglepattern %0|trianglepattern|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
 &n|set isosamples||      &p|%0,|iso 1, iso 2|multiple numerics(2)|checkbox|| 
-&n|set key||             &p|%0|on/off|selection(on,off)|checkbox||  &p|%0|inside/outside|selection(inside,outside)|checkbox||  &p|%0|margin|selection(lmargin,rmargin,tmargin,bmargin)|checkbox||  &p|%0|left/right|selection(left,right)|checkbox||  &p|%0|top/bottom|selection(top,bottom)|checkbox||  &p|%0|vertical/horizontal|selection(vertical,horizontal)|checkbox||  &p|%0|left/right|selection(left,right)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
+&n|set key||             &p|%0|on/off|selection(on,off)|checkbox||  &p|%0|inside/outside|selection(inside,outside)|checkbox||  &p|%0|margin|selection(lmargin,rmargin,tmargin,bmargin)|checkbox||  &p|%0|left/right|selection(left,right)|checkbox||  &p|%0|top/bottom|selection(top,bottom)|checkbox||  &p|%0|vertical/horizontal|selection(vertical,horizontal)|checkbox||  &p|%0|addictional arguments|text|checkbox|| 
 &n|set label||           &p|%0|tag|numeric|checkbox||  &p|"%0"|text|text|checkbox||  &p|at %0|at|text|checkbox||  &p|font %0|font name and size|text|checkbox||  &p|offset %0|offset|numeric|checkbox||  &p|%0|addictional arguments|text|checkbox||
 &n|set lmargin||         &p|%0|dimension|numeric|checkbox|| 
 &n|set loadpath||        &p|"%0"|file path|file selection|checkbox|| 
